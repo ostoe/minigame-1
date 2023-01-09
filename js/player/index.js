@@ -117,25 +117,24 @@ export default class Player extends Sprite {
       )
   
       databus.bullets.push(bullet)
-    } else if(mode == 1) { // 五发模式 [-30, -15, 0, 15, 30]
+    } else if(mode == 1) { // 五发模式 [-30, -15, -10, -5, 0, 5, 10, 15, 30]
       // console.log("---1");
-      [30, 15, 0].forEach( e => {
+      // let tmp11 = databus.bullets.map(e=>e.angle)
+      // console.log("b length:", databus.bullets.length, tmp11);
+      [-30, -15, -10, -5, 0, 5, 10, 15, 30].forEach( (e) => {
         const bullet = databus.pool.getItemByClass('bullet', Bullet)
-        console.log("0-:", e, bullet.angle)
+        // console.log( e, "<-", bullet.angle)
         bullet.init(
           this.x + this.width / 2 - bullet.width / 2,
           this.y - 10,
           10,
           e
         )
-        console.log("1-:", e, bullet.angle)
+        // console.log( e, "==?", bullet.angle)
         databus.bullets.push(bullet)
       })
       let tmp = databus.bullets.map(e=>e.angle)
-      let tmp1 = databus.bullets.map(e=>e.y)
-      console.log(databus.bullets, tmp, tmp1);
-
-
+      // console.log("a length:", databus.bullets.length, tmp);
     }
     
   }

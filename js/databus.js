@@ -42,10 +42,12 @@ export default class DataBus {
    * 此后不进入帧循环
    */
   removeBullets(bullet) {
-    const temp = this.bullets.shift()
+    const temp = this.bullets.splice(this.bullets.indexOf(bullet), 1)
+    // const temp = this.bullets.shift()
 
     temp.visible = false
-
+    // console.log("will remove:", temp[0].angle, "this->", bullet.angle, temp[0] == bullet ); // temp[0] always=== bullet
+    // this.pool.recover('bullet', bullet)
     this.pool.recover('bullet', bullet)
   }
 }

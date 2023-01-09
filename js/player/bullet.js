@@ -29,9 +29,11 @@ export default class Bullet extends Sprite {
 
   // 每一帧更新子弹位置
   update() {
-    if (this.angle ) {
-      this.x += Math.floor(this[__.speed] * Math.sin(this.angle/180*Math.PI))
-      this.y -= Math.floor(this[__.speed] * Math.cos(this.angle/180*Math.PI))
+    if ( this.angle ) {
+      
+      // console.log(this.angle, Math.sin(this.angle/180*Math.PI), Math.cos(this.angle/180*Math.PI));
+      this.x += Math.round(this[__.speed] * Math.sin(this.angle/180*Math.PI))
+      this.y -= Math.round(this[__.speed] * Math.cos(this.angle/180*Math.PI))
     } else {
       this.y -= this[__.speed]
     }

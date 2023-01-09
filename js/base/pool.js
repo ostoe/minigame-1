@@ -27,11 +27,22 @@ export default class Pool {
    */
   getItemByClass(name, className) {
     const pool = this.getPoolBySign(name)
-
+    // if (name == 'bullet') {
+    //   if (pool.length > 0) {
+    //     console.log("index0", pool.length, pool[0].angle);
+    //   }
+    //   let tmpo = []
+    //   pool.forEach(e=>{
+    //     tmpo.push(e.angle)
+    //   })
+    //   const tmppool = pool.map((e) => {
+    //     e.angle
+    //   })
+    //   console.log("pool", name, tmpo);
+    // }
     const result = (pool.length
       ? pool.shift()
       : new className())
-
     return result
   }
 
