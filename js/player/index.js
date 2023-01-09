@@ -121,15 +121,19 @@ export default class Player extends Sprite {
       // console.log("---1");
       [30, 15, 0].forEach( e => {
         const bullet = databus.pool.getItemByClass('bullet', Bullet)
+        console.log("0-:", e, bullet.angle)
         bullet.init(
           this.x + this.width / 2 - bullet.width / 2,
           this.y - 10,
           10,
           e
         )
+        console.log("1-:", e, bullet.angle)
         databus.bullets.push(bullet)
       })
-      console.log(databus.bullets);
+      let tmp = databus.bullets.map(e=>e.angle)
+      let tmp1 = databus.bullets.map(e=>e.y)
+      console.log(databus.bullets, tmp, tmp1);
 
 
     }
