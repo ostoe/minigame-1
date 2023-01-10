@@ -23,7 +23,7 @@ export default class DataBus {
     this.enemys = []
     this.animations = []
     this.gameOver = false
-    this.enhance = []
+    this.enhances = []
   }
 
   /**
@@ -34,7 +34,7 @@ export default class DataBus {
     const temp = this.enemys.shift()
 
     temp.visible = false
-
+    // console.log("enemy: ", enemy.y, "temp: ", temp.y, ); 、、 没有顺序问题，总是一致
     this.pool.recover('enemy', enemy)
   }
 
@@ -53,10 +53,10 @@ export default class DataBus {
   }
 
   removeEnhance(enhance) {
-    const temp = this.enhance.shift()
-
+    const temp = this.enhances.splice(this.enhances.indexOf(enhance), 1)[0]
+    // console.log("enhance: ", enhance.random, "temp: ", temp.random, "|", enhance.y, temp.y);
     temp.visible = false
 
-    this.pool.recover('enemy', enemy)
+    this.pool.recover('enhance', enhance)
   }
 }

@@ -4,6 +4,7 @@ import BackGround from './runtime/background'
 import GameInfo from './runtime/gameinfo'
 import Music from './runtime/music'
 import DataBus from './databus'
+import EnhanceProp from './player/enhance-prop'
 
 const ctx = canvas.getContext('2d')
 
@@ -18,6 +19,7 @@ export default class Main {
     this.aniId = 0
 
     this.restart()
+    this.level = 0
   }
 
   restart() {
@@ -69,8 +71,22 @@ export default class Main {
           enemy.playAnimation()
           that.music.playExplosion()
 
+
           bullet.visible = false
           databus.score += 1
+          // new a 小蘑菇道具！
+          if (Math.random() < 0.1/(this.level + 1) ) {
+            const enhance = databus.pool.getItemByClass('enhance', EnhanceProp)
+            enhance.init(
+              enemy.x,
+              enemy.y,
+              10,
+              'images/mogu.png'
+            )
+        
+            databus.enhances.push(enhance)
+          }
+
 
           break
         }
@@ -86,6 +102,17 @@ export default class Main {
         break
       }
     }
+
+    for ( let i = 0, il = databus.enhances.length; i < il; i++) {
+      const enhance = databus.enhances[i]
+      if (this.player.isCollideWith(enhance)) {
+        // console.log("level + 1");
+        this.level <= 100 && (this.level += 1)
+        enhance.visible = false
+      }
+    }
+
+    
   }
 
   // 游戏结束后的触摸事件处理逻辑
@@ -114,6 +141,7 @@ export default class Main {
 
     databus.bullets
       .concat(databus.enemys)
+      .concat(databus.enhances)
       .forEach((item) => {
         item.drawToCanvas(ctx)
       })
@@ -148,6 +176,7 @@ export default class Main {
 
     databus.bullets
       .concat(databus.enemys)
+      .concat(databus.enhances)
       .forEach((item) => {
         item.update()
       })
@@ -157,7 +186,7 @@ export default class Main {
     this.collisionDetection()
 
     if (databus.frame % 30 === 0) {
-      this.player.shoot(1)
+      this.player.shoot(this.level)
       this.music.playShoot()
     }
   }

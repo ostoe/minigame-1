@@ -9,6 +9,17 @@ const screenHeight = window.innerHeight
 const PLAYER_IMG_SRC = 'images/hero.png'
 const PLAYER_WIDTH = 80
 const PLAYER_HEIGHT = 80
+const BULLET_LEVEL = {
+  0: [0],
+  1: [-5, 5],
+  2: [-5, 0, 5],
+  3: [-10, -5, 0, 5],
+  4: [-10, -5, 0, 5, 10],
+  5: [-15, -10, -5, 0, 5, 10],
+  6: [-15, -10, -5, 0, 5, 10, -15],
+  7: [-30, -15, -10, -5, 0, 5, 10, -15],
+  8: [-30, -15, -10, -5, 0, 5, 10, -15, 30],
+}
 
 const databus = new DataBus()
 
@@ -106,6 +117,7 @@ export default class Player extends Sprite {
    * 射击时机由外部决定
    */
   shoot(mode=0) {
+    let imgSrc = ""
     if(mode == 0) {
       // console.log('---');
       const bullet = databus.pool.getItemByClass('bullet', Bullet)
@@ -117,15 +129,15 @@ export default class Player extends Sprite {
       )
   
       databus.bullets.push(bullet)
-    } else if(mode == 1) { // 五发模式 [-30, -15, -10, -5, 0, 5, 10, 15, 30]
+    } else if(mode <= 8) { // 五发模式 [-30, -15, -10, -5, 0, 5, 10, 15, 30]
       // console.log("---1");
       // let tmp11 = databus.bullets.map(e=>e.angle)
       // console.log("b length:", databus.bullets.length, tmp11);
-      [ -15,  -5, 0, 5,  15, ].forEach( (e) => {
+      BULLET_LEVEL[mode].forEach( (e) => {
         const bullet = databus.pool.getItemByClass('bullet', Bullet, )
         // {BULLET_IMG_SRC: 'images/bullet1.png'})
         // console.log( e, "<-", bullet.angle)
-        let imgSrc = ""
+        
         if (Math.abs(e) == 10) {
           imgSrc = 'images/bullet1.png';
         } else {
@@ -141,9 +153,25 @@ export default class Player extends Sprite {
         // console.log( e, "==?", bullet.angle)
         databus.bullets.push(bullet)
       })
-      let tmp = databus.bullets.map(e=>e.angle)
+      // let tmp = databus.bullets.map(e=>e.angle)
       // console.log("a length:", databus.bullets.length, tmp);
-    } else if(mode == 2) {
+    } else if(8< mode <= 100) {
+      BULLET_LEVEL[8].forEach( (e) => {
+        const bullet = databus.pool.getItemByClass('bullet', Bullet, )
+        if (Math.abs(e) == 10) {
+          imgSrc = 'images/bullet1.png';
+        } else {
+          imgSrc = 'images/bullet.png'
+        }
+        bullet.init(
+          this.x + this.width / 2 - bullet.width / 2,
+          this.y - 10,
+          10,
+          e,
+          imgSrc
+        )
+        databus.bullets.push(bullet)
+      })
 
     }
     
