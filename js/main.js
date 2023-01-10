@@ -156,7 +156,7 @@ export default class Main {
 
     this.collisionDetection()
 
-    if (databus.frame % 20 === 0) {
+    if (databus.frame % 30 === 0) {
       this.player.shoot(1)
       this.music.playShoot()
     }

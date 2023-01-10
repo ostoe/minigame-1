@@ -25,7 +25,7 @@ export default class Pool {
    * 根据传入的对象标识符，查询对象池
    * 对象池为空创建新的类，否则从对象池中取
    */
-  getItemByClass(name, className) {
+  getItemByClass(name, className, keys={}) {
     const pool = this.getPoolBySign(name)
     // if (name == 'bullet') {
     //   if (pool.length > 0) {
@@ -42,7 +42,7 @@ export default class Pool {
     // }
     const result = (pool.length
       ? pool.shift()
-      : new className())
+      : new className( keys))
     return result
   }
 

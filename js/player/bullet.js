@@ -14,16 +14,16 @@ const __ = {
 const databus = new DataBus()
 
 export default class Bullet extends Sprite {
-  constructor() {
-    super(BULLET_IMG_SRC, BULLET_WIDTH, BULLET_HEIGHT)
+  constructor(keys={}) {
+    super(keys['BULLET_IMG_SRC'] || 'images/bullet.png', BULLET_WIDTH, BULLET_HEIGHT)
   }
 
-  init(x, y, speed, angle) {
+  init(x, y, speed, angle, imgSrc) {
     this.x = x
     this.y = y
     this.angle = angle // 顺时针角度
     this[__.speed] = speed
-
+    !imgSrc || (this.img.src = imgSrc)
     this.visible = true
   }
 

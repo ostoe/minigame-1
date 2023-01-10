@@ -121,20 +121,30 @@ export default class Player extends Sprite {
       // console.log("---1");
       // let tmp11 = databus.bullets.map(e=>e.angle)
       // console.log("b length:", databus.bullets.length, tmp11);
-      [-30, -15, -10, -5, 0, 5, 10, 15, 30].forEach( (e) => {
-        const bullet = databus.pool.getItemByClass('bullet', Bullet)
+      [ -15,  -5, 0, 5,  15, ].forEach( (e) => {
+        const bullet = databus.pool.getItemByClass('bullet', Bullet, )
+        // {BULLET_IMG_SRC: 'images/bullet1.png'})
         // console.log( e, "<-", bullet.angle)
+        let imgSrc = ""
+        if (Math.abs(e) == 10) {
+          imgSrc = 'images/bullet1.png';
+        } else {
+          imgSrc = 'images/bullet.png'
+        }
         bullet.init(
           this.x + this.width / 2 - bullet.width / 2,
           this.y - 10,
           10,
-          e
+          e,
+          imgSrc
         )
         // console.log( e, "==?", bullet.angle)
         databus.bullets.push(bullet)
       })
       let tmp = databus.bullets.map(e=>e.angle)
       // console.log("a length:", databus.bullets.length, tmp);
+    } else if(mode == 2) {
+
     }
     
   }

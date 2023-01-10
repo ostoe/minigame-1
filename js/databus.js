@@ -23,6 +23,7 @@ export default class DataBus {
     this.enemys = []
     this.animations = []
     this.gameOver = false
+    this.enhance = []
   }
 
   /**
@@ -49,5 +50,13 @@ export default class DataBus {
     // console.log("will remove:", temp[0].angle, "this->", bullet.angle, temp[0] == bullet ); // temp[0] always=== bullet
     // this.pool.recover('bullet', bullet)
     this.pool.recover('bullet', bullet)
+  }
+
+  removeEnhance(enhance) {
+    const temp = this.enhance.shift()
+
+    temp.visible = false
+
+    this.pool.recover('enemy', enemy)
   }
 }
